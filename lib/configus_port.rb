@@ -5,13 +5,17 @@ module ConfigusPort
   autoload "Builder", "configus_port/builder"
 
   def self.build(*args, &block)
-    ConfigusPort::Builder.build(*args, &block)
+    result = ConfigusPort::Builder.new(*args, &block)
+    @result = ConfigusPort::Config.new(result.result)
+  end
+  def self.result
+    @result
   end
   # Your code goes here...
 end
 
 module Kernel
   def config
-    ConfigusPort::Config
+    ConfigusPort.result
   end
 end

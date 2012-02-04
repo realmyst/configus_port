@@ -1,8 +1,17 @@
 module ConfigusPort
-  module Config
-    def self.build(env, &block)
-      builder = ConfigusPort::Builder.new
-      @config = builder.build(env, &block)
+  class Config
+    def initialize(result)
+      raise result.inspect
+      (class << self; self; end).class_eval do
+        result.each_pair do |key, value|
+           if value.kind_of? Hash
+             value = ConfigusPort::Config.new(value)
+           end
+           define_method key do
+             value
+           end
+        end
+      end
     end
   end
 end

@@ -1,4 +1,4 @@
-ConfigusPort.build :development do
+ConfigusPort.build :test do
   env :production do
     key 'value'
     foo 'bar'
@@ -13,8 +13,17 @@ ConfigusPort.build :development do
     foo 'foobar'
     nil_value nil
     false_value false
+    without_value
     sections do
       first 'another_value'
+    end
+  end
+
+  env :test, :parent => :development do
+    sections do
+      block do
+        value "value"
+      end
     end
   end
 end

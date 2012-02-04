@@ -3,6 +3,7 @@ require "configus_port/version"
 module ConfigusPort
   autoload "Config", "configus_port/config"
   autoload "Builder", "configus_port/builder"
+  autoload "Proxy", "configus_port/proxy"
 
   def self.build(*args, &block)
     result = ConfigusPort::Builder.new(*args, &block)
